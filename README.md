@@ -1,6 +1,6 @@
 # ldapphonebook
 ## About
-Web tool to query your LDAP/AD directory
+Web tool to query your LDAP/AD directory. Might be a useful addition to your company's intranet. :-)
 
 ## ToDo
 - add query form
