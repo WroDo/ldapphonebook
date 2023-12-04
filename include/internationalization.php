@@ -5,6 +5,7 @@ if ($gSiteLanguage=="de")
 	$gShortIntro			=	"<br/>
 	Du kannst hier nach Name, Telefonnummer und Abteilung suchen.<br/>
 	<br/>";
+	
 	/* index.php Buttons */
 	$gIntButtonSearchLabel		=	"Such!";
 }
