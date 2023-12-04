@@ -19,10 +19,10 @@ say("session_id: " . session_id(), __FILE__, __FUNCTION__, __LINE__, 2);
 
 include('header.php'); // insert header incl. <body>-tag
 
-echo("$gShortIntro
+	echo("<div style=\"text-align:center\">
+	$gShortIntro
 	<br/>
-	<div style=\"text-align:center\">
-		<a href=\"search.php\"><button style=\"background:green;color:white;\">$gIntButtonSearchLabel</button></a>
+		<a href=\"index.php\"><button style=\"background:green;color:white;\">$gIntButtonSearchLabel</button></a>
 	</div>
 ");
 
