@@ -35,6 +35,7 @@ if ($lLdapConnection = ldap_connect($gLdapServerHost, $gLdapServerPort)) // conn
 	{
 		say("LDAP bind for user \"$gLdapBindUser\" failed.", __FILE__, __FUNCTION__, __LINE__, 0);
 	}
+	ldap_close($lLdapConnection);
 }
 else
 {
