@@ -8,6 +8,7 @@ if ($gSiteLanguage=="de")
 	
 	/* index.php Buttons */
 	$gIntButtonSearchLabel		=	"Such!";
+	$gIntSearchStringLabel		=	"Suchbegriff:";
 }
 elseif ($gSiteLanguage=="en")
 { 
@@ -17,6 +18,7 @@ elseif ($gSiteLanguage=="en")
 	
 	/* index.php Buttons */
 	$gIntButtonSearchLabel		=	"Search!";
+	$gIntSearchStringLabel		=	"search pattern:";
 }
 // add other languages here
 
