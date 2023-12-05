@@ -9,24 +9,15 @@ $gFileLogMaxSize    =   1024*1024*42;   /* 42MB :) */
 $gSiteLogo			=	"images/companylogo.png";
 $gCustomHeaderLines	=	"";
 $gSiteLanguage		=	"de"; // switch here to en or make it dependant on browser's language
-//$basedn=array('dmdName=users,dc=foo,dc=fr','dmdName=users,dc=bar,dc=com');  // two basedn
-$gLdapBaseDn		=	'TBD';
-$gLdapFilter		=	'(&(objectClass=inetOrgPerson)(uid=*))';  // single filter
-$gLdapAttributes	=	array('dn','uid','sn');
-$gLdapBindUser		=	", , ";
-$gLdapBindPassword	=	'something cryptic';
-$gLdapServerHost	=	'buead1.intern.hcsn.de';
-$gLdapServerPort	=	389;
+$gSearchStringMinLen	=	3;
 
+/* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
 $gLdapConnections	=	array(
 	0	=>	array(
-		'server'=>'buead1.intern.hcsn.de', 'port'=>389, 'user'=>'ldap.blah', 'password'=>'SECRET', 'basedn'='TBD', 'filter'='(&(objectClass=inetOrgPerson)(uid=*))', 'attributes'=>array('dn','uid','sn')
+		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'='TBD', 'filter'='(&(objectClass=inetOrgPerson)(uid=*))', 'attributes'=>array('dn','uid','sn')
 				 ),
 	# Add more connections if you have multiple directories...
 );
 
-
-# MAKE MULTIPLE SERVERS POSSIBLE!
-# COPY TO TEMPLATE!
 
 ?>
