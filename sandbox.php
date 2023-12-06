@@ -24,7 +24,7 @@ foreach ($gLdapConnections as $gLdapConnectionNumber => $gLdapConnectionArray)
 	#$lLdapAttributes=$gLdapConnectionArray['attributes'];
 
 	#$lLdapFilter='(cn=*)';
-	$lLdapFilter='(cn=ldap.p*)';
+	$lLdapFilter='(cn=*tschm*)';
 	
 	/* (Un)main */
 	if ($lLdapConnection = ldap_connect($lLdapServer, $lLdapPort)) // does not actually connect, bind does!

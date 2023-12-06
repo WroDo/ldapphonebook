@@ -90,19 +90,22 @@ include('header.php'); // insert header incl. <body>-tag
 							//for($i=0; $i<count($lLdapSearchResults); $i++) // walk search results
 							foreach ($lLdapSearchResultEntries as $lLdapSearchResultEntry)
 							{
-								//var_dump($lLdapSearchResultEntry);
+								#var_dump($lLdapSearchResultEntry);
 								if (is_array($lLdapSearchResultEntry))
 								{
 									#print_r($lLdapSearchResultEntry);
 									#print "\n";
 									// SOMEHOW NULL var_dump($lLdapSearchResultEntry['thumbnailPhoto'][0]);
-									if (isset($lLdapSearchResultEntry['thumbnailPhoto'][0]))
+									#var_dump($lLdapSearchResultEntry);
+									if (isset($lLdapSearchResultEntry['thumbnailphoto'][0]))
 									{
-										$lLdapSearchResultUserimageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailPhoto'][0]) . " ?>\" />";
+										$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . "\" >"; /**/
+										/*$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . " ?>\" />"; /**/
+										/* $lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . $lLdapSearchResultEntry['thumbnailphoto'][0] . " ?>\" />"; /**/
 									}
 									else
 									{
-										$lLdapSearchResultUserimageLink="";
+										$lLdapSearchResultUserImageLink="";
 									}
 
 
@@ -110,7 +113,7 @@ include('header.php'); // insert header incl. <body>-tag
 
 									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 
-									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), mergeValues($lLdapSearchResultEntry, 'telephonenumber'), getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
+									printf($gTableRowFormat, $lLdapSearchResultUserImageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), mergeValues($lLdapSearchResultEntry, 'telephonenumber'), getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
 
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
 									sayArray($lLdapSearchResultEntry, __FILE__, __FUNCTION__, __LINE__, 2);
