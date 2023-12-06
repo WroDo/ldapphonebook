@@ -4,8 +4,7 @@ echo("
 	<head>   
 		<meta charset=\"utf-8\">
 		<title>$gSiteName</title>
-		<link href=\"dropzone.css\" type=\"text/css\" rel=\"stylesheet\" />
-		<script src=\"dropzone.min.js\"></script>
+		<link rel="stylesheet" href="main.css" type="text/css">
 ");
 if (strlen($gCustomHeaderLines)>0) { echo($gCustomHeaderLines); }
 echo("
