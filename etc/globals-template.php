@@ -15,7 +15,7 @@ $gLdapTimeout           =   5; // default timeout is about 2 minutes, setting it
 /* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
 $gLdapConnections	=	array(
 	0	=>	array(
-		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD', 'filter'=>'(&(objectClass=inetOrgPerson)(uid=*))', 'attributes'=>array('dn','uid','sn')
+		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD'
 				 ),
 	# Add more connections if you have multiple directories...
 );

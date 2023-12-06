@@ -10,6 +10,7 @@ if ($gSiteLanguage=="de")
 	$gIntButtonSearchLabel		=	"Such!";
 	$gIntSearchStringLabel		=	"Suchbegriff:";
 	$gIntSearchStringTooShort	=	"Suchbegriff muss mindestens $gSearchStringMinLen Zeichen lang sein!";
+	$gIntSearchResultSummary	=	"Die Suche ergab %d Treffer:<br/>";
 }
 elseif ($gSiteLanguage=="en")
 { 
@@ -21,6 +22,7 @@ elseif ($gSiteLanguage=="en")
 	$gIntButtonSearchLabel		=	"Search!";
 	$gIntSearchStringLabel		=	"search pattern:";
 	$gIntSearchStringTooShort	=	"Search string must be at least $gSearchStringMinLen characters long!";
+	$gIntSearchResultSummary	=	"The search returned %d results:<br/>";
 }
 // add other languages here
 
