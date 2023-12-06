@@ -3,7 +3,7 @@
 Web tool to query your LDAP/AD directory. Might be a useful addition to your company's intranet. :-)
 
 ## ToDo
-- handle thumbnails
+- handle thumbnails (NULL from AD?)
 - take over the world, Pinky!
 
 ## Installation

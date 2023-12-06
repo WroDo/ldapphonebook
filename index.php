@@ -95,7 +95,8 @@ include('header.php'); // insert header incl. <body>-tag
 								{
 									#print_r($lLdapSearchResultEntry);
 									#print "\n";
-									if (is_array($lLdapSearchResultEntry) && isset($lLdapSearchResultEntry['thumbnailPhoto'][0]))
+									// SOMEHOW NULL var_dump($lLdapSearchResultEntry['thumbnailPhoto'][0]);
+									if (isset($lLdapSearchResultEntry['thumbnailPhoto'][0]))
 									{
 										$lLdapSearchResultUserimageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailPhoto'][0]) . " ?>\" />";
 									}
@@ -105,8 +106,12 @@ include('header.php'); // insert header incl. <body>-tag
 									}
 
 
-									#printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
-									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
+									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
+
+									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
+
+									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), mergeValues($lLdapSearchResultEntry, 'telephonenumber'), getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
+
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
 									sayArray($lLdapSearchResultEntry, __FILE__, __FUNCTION__, __LINE__, 2);
 								}
@@ -151,11 +156,12 @@ include('header.php'); // insert header incl. <body>-tag
 	}
 	
 
-function mergeValues($aArray)
+function mergeValues($aArray, $aKey)
 {
 	// ldap returns for every value an array, even if ther's only one (f.e. telephonenumbers)
-	if (isset($aArray) && is_array($aArray))
+	if (isset($aArray) && is_array($aArray) && array_key_exists($aKey, $aArray))
 	{
+		$aArray=$aArray[$aKey];
 		unset($aArray['count']);
 
 		if (count($aArray) > 1)
@@ -173,12 +179,31 @@ function mergeValues($aArray)
 	}
 	else
 	{
-		$lResultString="-/-";
+		$lResultString="";
 	}
 
 	return($lResultString);
 }
 
+function getFirstValue($aArray, $aKey)
+{
+	// ldap returns for every value an array, even if ther's only one (f.e. telephonenumbers)
+	if (isset($aArray) && is_array($aArray) && array_key_exists($aKey, $aArray))
+	{
+		$aArray=$aArray[$aKey];
+		unset($aArray['count']);
+
+		$lResultString=$aArray[0];
+	}
+	else
+	{
+		$lResultString="";
+	}
+
+	return($lResultString);
+}
+
+// https://stackoverflow.com/questions/16937863/display-thumbnailphoto-from-active-directory-in-php/16948219#16948219
 // https://stackoverflow.com/questions/16937863/display-thumbnailphoto-from-active-directory-in-php/16948219#16948219
 #function saveThumbnail($aArray)
 #{
