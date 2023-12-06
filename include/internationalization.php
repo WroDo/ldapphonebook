@@ -11,6 +11,11 @@ if ($gSiteLanguage=="de")
 	$gIntSearchStringLabel		=	"Suchbegriff:";
 	$gIntSearchStringTooShort	=	"Suchbegriff muss mindestens $gSearchStringMinLen Zeichen lang sein!";
 	$gIntSearchResultSummary	=	"Die Suche ergab %d Treffer:<br/>";
+	$gIntTableHeadImage			=	"";
+	$gIntTableHeadName			=	"Name";
+	$gIntTableHeadDepartment	=	"Abteilung";
+	$gIntTableHeadPhone			=	"Telefon";
+	$gIntTableHeadMail			=	"E-Mail";
 }
 elseif ($gSiteLanguage=="en")
 { 
@@ -23,6 +28,11 @@ elseif ($gSiteLanguage=="en")
 	$gIntSearchStringLabel		=	"search pattern:";
 	$gIntSearchStringTooShort	=	"Search string must be at least $gSearchStringMinLen characters long!";
 	$gIntSearchResultSummary	=	"The search returned %d results:<br/>";
+	$gIntTableHeadImage			=	"";
+	$gIntTableHeadName			=	"Name";
+	$gIntTableHeadDepartment	=	"Department";
+	$gIntTableHeadPhone			=	"Phone";
+	$gIntTableHeadMail			=	"E-Mail";
 }
 // add other languages here
 

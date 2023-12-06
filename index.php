@@ -63,12 +63,14 @@ include('header.php'); // insert header incl. <body>-tag
 				$lLdapUser=$gLdapConnectionArray['user'];
 				$lLdapPassword=$gLdapConnectionArray['password'];
 				$lLdapBaseDn=$gLdapConnectionArray['basedn'];
-				#$lLdapFilter=$gLdapConnectionArray['filter'];
+				$lLdapFilterFormat=$gLdapConnectionArray['filter'];
 				#$lLdapAttributes=$gLdapConnectionArray['attributes'];
 
 				#$lLdapFilter='(cn=*)';
-				$lLdapFilter="(cn=*$gSearchString*)"; // searching just for common name
-				
+				#$lLdapFilter="(cn=*$gSearchString*)"; // searching just for common name
+				$lLdapFilter=sprintf($lLdapFilterFormat, $gSearchString); // insert searchstring into format
+				say("lLdapFilter: $lLdapFilter", __FILE__, __FUNCTION__, __LINE__, 2);
+
 				/* (Un)main */
 				if ($lLdapConnection = ldap_connect($lLdapServer, $lLdapPort)) // does not actually connect, bind does!
 				{
@@ -77,6 +79,9 @@ include('header.php'); // insert header incl. <body>-tag
 
 					if (ldap_bind($lLdapConnection, $lLdapUser, $lLdapPassword)) // bind
 					{
+						/* Create Table Head */
+						printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadmail);
+				
 						if($lLdapSearchResult = ldap_search($lLdapConnection, $lLdapBaseDn, $lLdapFilter)) //, $lLdapAttributes)) // initiate search
 						{
 							#var_dump($lLdapSearchResult);
@@ -88,8 +93,10 @@ include('header.php'); // insert header incl. <body>-tag
 								//var_dump($lLdapSearchResultEntry);
 								if (is_array($lLdapSearchResultEntry))
 								{
-									print_r($lLdapSearchResultEntry);
-									print "\n";
+									#print_r($lLdapSearchResultEntry);
+									#print "\n";
+									$lLdapSearchResultUserimageLink="IMG SRC DINGS";
+									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
 									sayArray($lLdapSearchResultEntry, __FILE__, __FUNCTION__, __LINE__, 2);
 								}
@@ -106,6 +113,10 @@ include('header.php'); // insert header incl. <body>-tag
 						{
 							say("LDAP search failed (gLdapBaseDn: $lLdapBaseDn, gLdapFilter: $lLdapFilter, gLdapAttributes: implode(',' $lLdapAttributes))", __FILE__, __FUNCTION__, __LINE__, 0);
 						} // search
+
+						/* Create Table Foot */
+						printf($gTableFootFormat); //, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadFax,$gIntTableHeadmail);
+
 					}
 					else
 					{

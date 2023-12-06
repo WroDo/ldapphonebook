@@ -15,10 +15,31 @@ $gLdapTimeout           =   5; // default timeout is about 2 minutes, setting it
 /* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
 $gLdapConnections	=	array(
 	0	=>	array(
-		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD'
+		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD', 'filter'=>'(cn=*%s*)'
 				 ),
 	# Add more connections if you have multiple directories...
 );
+
+$gTableHeadFormat="
+<table style=\"margin: 0 auto; border: 1px solid black; border-collapse: collapse\">
+	<tr>
+		<th>%s</th>
+		<th>%s</th>
+		<th>%s</th>
+		<th>%s</th>
+		<th>%s</th>
+	</tr>\n";
+
+$gTableRowFormat="
+	<tr>
+		<td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td>%s</td>
+		<td><a href=\"mailto:%s\">%s</a></td>
+	<tr>\n";
+
+$gTableFootFormat="</table>\n";
 
 
 ?>
