@@ -7,6 +7,14 @@ Web tool to query your LDAP/AD directory. Might be a useful addition to your com
 - query (multiple) ldap servers
 - take over the world, Pinky!
 
+## Installation
+- set up apache2, nginx with php and php-ldap
+- ```git clone git@github.com:/WroDo/ldapphonebook```
+- edit etc/globals.php
+- upload a nice company logo
+- add some .css
+- enjoy!
+
 
 ## Known issues
 If you get something like this...
