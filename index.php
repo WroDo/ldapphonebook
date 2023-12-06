@@ -105,7 +105,14 @@ include('header.php'); // insert header incl. <body>-tag
 									}
 									else
 									{
-										$lLdapSearchResultUserImageLink="";
+										if (!$gUseSiteLogoForMissingThumbnails)
+										{
+											$lLdapSearchResultUserImageLink="";
+										}
+										else
+										{
+											$lLdapSearchResultUserImageLink="<img src=\"$gSiteLogo\">";
+										}
 									}
 
 

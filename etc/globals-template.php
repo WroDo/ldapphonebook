@@ -11,6 +11,8 @@ $gCustomHeaderLines	=	"";
 $gSiteLanguage		=	"de"; // switch here to en or make it dependant on browser's language
 $gSearchStringMinLen	=	3;
 $gLdapTimeout           =   5; // default timeout is about 2 minutes, setting it to five seconds
+$gUseSiteLogoForMissingThumbnails   = true; // if a user has no photo, use this instead
+
 
 /* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
 $gLdapConnections	=	array(
