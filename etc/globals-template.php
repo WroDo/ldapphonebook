@@ -21,7 +21,7 @@ $gLdapConnections	=	array(
 );
 
 $gTableHeadFormat="
-<table style=\"margin: 0 auto; border: 1px solid black; border-collapse: collapse\">
+<table>
 	<tr>
 		<th>%s</th>
 		<th>%s</th>
