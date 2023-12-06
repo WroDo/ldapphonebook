@@ -95,7 +95,16 @@ include('header.php'); // insert header incl. <body>-tag
 								{
 									#print_r($lLdapSearchResultEntry);
 									#print "\n";
-									$lLdapSearchResultUserimageLink="IMG SRC DINGS";
+									if (is_array($lLdapSearchResultEntry) && isset($lLdapSearchResultEntry['thumbnailPhoto'][0]))
+									{
+										$lLdapSearchResultUserimageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailPhoto'][0]) . " ?>\" />";
+									}
+									else
+									{
+										$lLdapSearchResultUserimageLink="";
+									}
+
+
 									#printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
@@ -170,10 +179,16 @@ function mergeValues($aArray)
 	return($lResultString);
 }
 
-function saveThumbnail($aArray)
-{
-
-}
+// https://stackoverflow.com/questions/16937863/display-thumbnailphoto-from-active-directory-in-php/16948219#16948219
+#function saveThumbnail($aArray)
+#{
+#	$tempFile = tempnam(sys_get_temp_dir(), 'image');
+#	file_put_contents($tempFile, $imageString);
+#	$finfo = new finfo(FILEINFO_MIME_TYPE);
+#	$mime  = explode(';', $finfo->file($tempFile));
+#	echo '<img src="data:' . $mime[0] . ';base64,' . base64_encode($imageString) . '"/>';
+#
+#}
 
 
 include("footer.php");
