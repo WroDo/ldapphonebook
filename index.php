@@ -21,10 +21,10 @@ sayArray($_POST, __FILE__, __FUNCTION__, __LINE__, 2);
 if (array_key_exists('searchstring', $_POST))
 {
 	$gSearchString=$_POST['searchstring'];
+	say("gSearchString: $gSearchString", __FILE__, __FUNCTION__, __LINE__, 2);
 }
 say("_FILES:", __FILE__, __FUNCTION__, __LINE__, 2);
 sayArray($_FILES, __FILE__, __FUNCTION__, __LINE__, 2);
-say("gSearchString: $gSearchString", __FILE__, __FUNCTION__, __LINE__, 2);
 
 
 //include('cleanupinc.php'); // clean our session files
@@ -80,7 +80,7 @@ include('header.php'); // insert header incl. <body>-tag
 					if (ldap_bind($lLdapConnection, $lLdapUser, $lLdapPassword)) // bind
 					{
 						/* Create Table Head */
-						printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadmail);
+						printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadMail);
 				
 						if($lLdapSearchResult = ldap_search($lLdapConnection, $lLdapBaseDn, $lLdapFilter)) //, $lLdapAttributes)) // initiate search
 						{
@@ -96,7 +96,8 @@ include('header.php'); // insert header incl. <body>-tag
 									#print_r($lLdapSearchResultEntry);
 									#print "\n";
 									$lLdapSearchResultUserimageLink="IMG SRC DINGS";
-									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
+									#printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
+									printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
 									sayArray($lLdapSearchResultEntry, __FILE__, __FUNCTION__, __LINE__, 2);
 								}
@@ -141,6 +142,38 @@ include('header.php'); // insert header incl. <body>-tag
 	}
 	
 
+function mergeValues($aArray)
+{
+	// ldap returns for every value an array, even if ther's only one (f.e. telephonenumbers)
+	if (isset($aArray) && is_array($aArray))
+	{
+		unset($aArray['count']);
+
+		if (count($aArray) > 1)
+		{
+			$lResultString=implode('<br/>', $aArray);
+		}
+		else if (count($aArray) == 0)
+		{
+			$lResultString="-/-";
+		}
+		else
+		{
+			$lResultString=$aArray[0];
+		}
+	}
+	else
+	{
+		$lResultString="-/-";
+	}
+
+	return($lResultString);
+}
+
+function saveThumbnail($aArray)
+{
+
+}
 
 
 include("footer.php");

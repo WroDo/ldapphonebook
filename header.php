@@ -4,7 +4,7 @@ echo("
 	<head>   
 		<meta charset=\"utf-8\">
 		<title>$gSiteName</title>
-		<link rel="stylesheet" href="main.css" type="text/css">
+		<link rel=\"stylesheet\" href=\"main.css\" type=\"text/css\">
 ");
 if (strlen($gCustomHeaderLines)>0) { echo($gCustomHeaderLines); }
 echo("
