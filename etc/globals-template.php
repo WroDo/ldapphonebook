@@ -11,13 +11,13 @@ $gCustomHeaderLines	=	"";
 $gSiteLanguage		=	"de"; // switch here to en or make it dependant on browser's language
 $gSearchStringMinLen	=	3;
 $gLdapTimeout           =   5; // default timeout is about 2 minutes, setting it to five seconds
-$gUseSiteLogoForMissingThumbnails   = true; // if a user has no photo, use this instead
-
+$gUseDefaultForMissingThumbnails   = true; // if a user has no photo, use this instead, can be configured per connection
 
 /* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
-$gLdapConnections	=	array(
+$gLdapConnections	=
+array(
 	0	=>	array(
-		'server'=>'SOMEHOST', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD', 'filter'=>'(cn=*%s*)'
+		'server'=>'ldaphost.your.domain', 'port'=>389, 'user'=>'LDAPUSER', 'password'=>'SECRET', 'basedn'=>'TBD', 'filter'=>'(cn=*%s*)', 'thumbnail'=>'images/companylogo.png'
 				 ),
 	# Add more connections if you have multiple directories...
 );

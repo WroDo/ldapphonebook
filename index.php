@@ -55,6 +55,9 @@ include('header.php'); // insert header incl. <body>-tag
 		{
 			echo("	<div style=\"text-align:center\">");
 
+			/* Create Table Head */
+			printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadMail);
+
 			/* Get the connections and walk thru them */
 			foreach ($gLdapConnections as $gLdapConnectionNumber => $gLdapConnectionArray)
 			{
@@ -64,6 +67,7 @@ include('header.php'); // insert header incl. <body>-tag
 				$lLdapPassword=$gLdapConnectionArray['password'];
 				$lLdapBaseDn=$gLdapConnectionArray['basedn'];
 				$lLdapFilterFormat=$gLdapConnectionArray['filter'];
+				$lLdapDefaultThumbnail=$gLdapConnectionArray['thumbnail'];
 				#$lLdapAttributes=$gLdapConnectionArray['attributes'];
 
 				#$lLdapFilter='(cn=*)';
@@ -79,8 +83,6 @@ include('header.php'); // insert header incl. <body>-tag
 
 					if (ldap_bind($lLdapConnection, $lLdapUser, $lLdapPassword)) // bind
 					{
-						/* Create Table Head */
-						printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadMail);
 				
 						if($lLdapSearchResult = ldap_search($lLdapConnection, $lLdapBaseDn, $lLdapFilter)) //, $lLdapAttributes)) // initiate search
 						{
@@ -105,13 +107,13 @@ include('header.php'); // insert header incl. <body>-tag
 									}
 									else
 									{
-										if (!$gUseSiteLogoForMissingThumbnails)
+										if (!$gUseDefaultForMissingThumbnails)
 										{
 											$lLdapSearchResultUserImageLink="";
 										}
 										else
 										{
-											$lLdapSearchResultUserImageLink="<img src=\"$gSiteLogo\">";
+											$lLdapSearchResultUserImageLink="<img src=\"$lLdapDefaultThumbnail\">";
 										}
 									}
 
@@ -139,8 +141,6 @@ include('header.php'); // insert header incl. <body>-tag
 							say("LDAP search failed (gLdapBaseDn: $lLdapBaseDn, gLdapFilter: $lLdapFilter, gLdapAttributes: implode(',' $lLdapAttributes))", __FILE__, __FUNCTION__, __LINE__, 0);
 						} // search
 
-						/* Create Table Foot */
-						printf($gTableFootFormat); //, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadFax,$gIntTableHeadmail);
 
 					}
 					else
@@ -155,6 +155,10 @@ include('header.php'); // insert header incl. <body>-tag
 				} // connect
 
 			} // for connection
+
+			/* Create Table Foot */
+			printf($gTableFootFormat); //, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadFax,$gIntTableHeadmail);
+
 			echo("	</div>");
 		}
 		else
