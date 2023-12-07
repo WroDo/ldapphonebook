@@ -3,9 +3,6 @@
 Web tool to query your LDAP/AD directory. Might be a useful addition to your company's intranet. :-)
 
 ## ToDo
-- insert image per connection
-- move table outside loop (?)
-- handle thumbnails --DONE
 - take over the world, Pinky!
 
 ## Installation
