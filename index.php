@@ -101,9 +101,7 @@ include('header.php'); // insert header incl. <body>-tag
 									#var_dump($lLdapSearchResultEntry);
 									if (isset($lLdapSearchResultEntry['thumbnailphoto'][0]))
 									{
-										$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . "\" >"; /**/
-										/*$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . " ?>\" />"; /**/
-										/* $lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . $lLdapSearchResultEntry['thumbnailphoto'][0] . " ?>\" />"; /**/
+										$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . "\" width=\"$gThumbnailWidth\">"; /**/
 									}
 									else
 									{
@@ -113,7 +111,7 @@ include('header.php'); // insert header incl. <body>-tag
 										}
 										else
 										{
-											$lLdapSearchResultUserImageLink="<img src=\"$lLdapDefaultThumbnail\">";
+											$lLdapSearchResultUserImageLink="<img src=\"$lLdapDefaultThumbnail\" width=\"$gThumbnailWidthDefault\" >";
 										}
 									}
 

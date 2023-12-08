@@ -1,4 +1,7 @@
 etc/globals.php
-images/companylogo.png
-log/#log.log
+images/*.jpeg
+images/*.png
+images/*.jpg
+images/*.svg
+log/*
 thumbnails/*.jpg
