@@ -3,7 +3,6 @@
 Web tool to query your LDAP/AD directory. Might be a useful addition to your company's intranet. :-)
 
 ## ToDo
-- filter entries w/o phone && email
 - filter by OU/mail whatever to reduce results (f.e. admin-accounts)
 - take over the world, Pinky!
 
