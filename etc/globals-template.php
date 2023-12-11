@@ -14,6 +14,7 @@ $gLdapTimeout           =   5; // default timeout is about 2 minutes, setting it
 $gUseDefaultForMissingThumbnails   = true; // if a user has no photo, use this instead, can be configured per connection
 $gThumbnailWidth        =       64; // size of images from your ldap directory
 $gThumbnailWidthDefault =       32; // size of images from your connection's default thumbnail
+$gOmitEntriesWithNoPhoneAndEmail	=	true;
 
 /* Add one ore more connections here. Might be useful if you have more than von directory (like 2 ADs while a company merge) */
 $gLdapConnections	=

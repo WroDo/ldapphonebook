@@ -72,7 +72,8 @@ include('header.php'); // insert header incl. <body>-tag
 
 				#$lLdapFilter='(cn=*)';
 				#$lLdapFilter="(cn=*$gSearchString*)"; // searching just for common name
-				$lLdapFilter=sprintf($lLdapFilterFormat, $gSearchString); // insert searchstring into format
+				//$lLdapFilter=sprintf($lLdapFilterFormat, $gSearchString); // insert searchstring into format
+				$lLdapFilter=str_replace('%s', $gSearchString, $lLdapFilterFormat); // insert searchstring into format
 				say("lLdapFilter: $lLdapFilter", __FILE__, __FUNCTION__, __LINE__, 2);
 
 				/* (Un)main */
@@ -119,8 +120,14 @@ include('header.php'); // insert header incl. <body>-tag
 									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
 
 									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
-
-									printf($gTableRowFormat, $lLdapSearchResultUserImageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), mergeValues($lLdapSearchResultEntry, 'telephonenumber'), getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
+									
+									$lTelephonenumbers=mergeValues($lLdapSearchResultEntry, 'telephonenumber');
+									$lEmails=getFirstValue($lLdapSearchResultEntry, 'mail');
+									
+									if (!$gOmitEntriesWithNoPhoneAndEmail || (strlen($lTelephonenumbers)>5 && strlen($lEmails)>5))
+									{
+										printf($gTableRowFormat, $lLdapSearchResultUserImageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), $lTelephonenumbers, $lEmails, $lEmails); //getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
+									}
 
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
 									sayArray($lLdapSearchResultEntry, __FILE__, __FUNCTION__, __LINE__, 2);
