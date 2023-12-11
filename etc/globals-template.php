@@ -20,7 +20,7 @@ $gOmitEntriesWithNoPhoneAndEmail	=	true;
 $gLdapConnections	=
 array(
 	0	=>	array(
-		'server'=>'ldaphost.your.domain', 'port'=>389, 'user'=>'CN=ldap.phonebook,OU=users,DC=intern,DC=your,DC=domain', 'password'=>'SECRET', 'basedn'=>'OU=users,DC=intern,DC=your,DC=domain', 'filter'=>'(cn=*%s*)', 'thumbnail'=>'images/companylogo.png'
+		'server'=>'ldaphost.your.domain', 'port'=>389, 'user'=>'CN=ldap.phonebook,OU=users,DC=intern,DC=your,DC=domain', 'password'=>'SECRET', 'basedn'=>'OU=users,DC=intern,DC=your,DC=domain', 'filter'=>'(|(cn=*%s*)(department=*%s*)(telephonenumber=*%s*))', 'thumbnail'=>'images/companylogo.png'
 				 ),
 	# Add more connections if you have multiple directories...
 );
