@@ -10,7 +10,7 @@ if ($gSiteLanguage=="de")
 	$gIntButtonSearchLabel		=	"Such!";
 	$gIntSearchStringLabel		=	"Suchbegriff:";
 	$gIntSearchStringTooShort	=	"Suchbegriff muss mindestens $gSearchStringMinLen Zeichen lang sein!";
-	$gIntSearchResultSummary	=	"Die Suche ergab %d Treffer:<br/>";
+	$gIntSearchResultSummary	=	"Die Suche ergab %d Treffer.<br/>";
 	$gIntTableHeadImage			=	"";
 	$gIntTableHeadName			=	"Name";
 	$gIntTableHeadDepartment	=	"Abteilung";
@@ -27,7 +27,7 @@ elseif ($gSiteLanguage=="en")
 	$gIntButtonSearchLabel		=	"Search!";
 	$gIntSearchStringLabel		=	"search pattern:";
 	$gIntSearchStringTooShort	=	"Search string must be at least $gSearchStringMinLen characters long!";
-	$gIntSearchResultSummary	=	"The search returned %d results:<br/>";
+	$gIntSearchResultSummary	=	"The search returned %d results.<br/>";
 	$gIntTableHeadImage			=	"";
 	$gIntTableHeadName			=	"Name";
 	$gIntTableHeadDepartment	=	"Department";

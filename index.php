@@ -49,6 +49,7 @@ include('etc/header.php'); // insert header incl. <body>-tag
 		if(strlen($gSearchString) >= $gSearchStringMinLen)
 		{
 			echo("	<div style=\"text-align:center\">");
+			$gResultCount=0;
 
 			/* Create Table Head */
 			printf($gTableHeadFormat, $gIntTableHeadImage, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadMail);
@@ -105,6 +106,7 @@ include('etc/header.php'); // insert header incl. <body>-tag
 									
 									if (!$gOmitEntriesWithNoPhoneAndEmail || (strlen($lTelephonenumbers)>5 && strlen($lEmails)>5))
 									{
+										$gResultCount++;
 										printf($gTableRowFormat, $lLdapSearchResultUserImageLink, arrayToString($lLdapSearchResultEntry, 'cn'), arrayToString($lLdapSearchResultEntry, 'department'), $lTelephonenumbers, $lEmails, $lEmails); //getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
 									}
 
@@ -116,7 +118,7 @@ include('etc/header.php'); // insert header incl. <body>-tag
 									say("lLdapSearchResultEntry is no array (result count?)", __FILE__, __FUNCTION__, __LINE__, 1);
 									$lLdapSearchResultEntriesCount=$lLdapSearchResultEntry;
 									say("lLdapSearchResultEntriesCount: $lLdapSearchResultEntriesCount", __FILE__, __FUNCTION__, __LINE__, 1);
-									printf($gIntSearchResultSummary, $lLdapSearchResultEntriesCount);
+									#printf($gIntSearchResultSummary, $gResultCount);
 								}
 							} // walk search results
 						}
@@ -124,6 +126,7 @@ include('etc/header.php'); // insert header incl. <body>-tag
 						{
 							say("LDAP search failed (gLdapBaseDn: $lLdapBaseDn, gLdapFilter: $lLdapFilter, gLdapAttributes: implode(',' $lLdapAttributes))", __FILE__, __FUNCTION__, __LINE__, 0);
 						} // search
+
 
 
 					}
@@ -140,9 +143,11 @@ include('etc/header.php'); // insert header incl. <body>-tag
 
 			} // for connection
 
+
 			/* Create Table Foot */
 			printf($gTableFootFormat); //, $gIntTableHeadName, $gIntTableHeadDepartment, $gIntTableHeadPhone, $gIntTableHeadFax,$gIntTableHeadmail);
 
+			printf($gIntSearchResultSummary, $gResultCount);
 			echo("	</div>");
 		}
 		else
