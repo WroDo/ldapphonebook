@@ -4,14 +4,13 @@
 <?php
 /* Includes */
 require_once('etc/globals.php');
+require_once('etc/internationalization.php');
 require_once('include/commonFunctions.php');
 require_once('include/commonLogging.php');
 require_once('include/commonFiles.php');
-require_once('include/internationalization.php');
 
 
 /* Some Debugging */
-//$gSearchString="";
 session_start(); /* https://www.php.net/manual/en/function.session-start.php */
 say("session_id: " . session_id(), __FILE__, __FUNCTION__, __LINE__, 2);
 say("_REQUEST:", __FILE__, __FUNCTION__, __LINE__, 2);
@@ -26,11 +25,7 @@ if (array_key_exists('searchstring', $_POST))
 say("_FILES:", __FILE__, __FUNCTION__, __LINE__, 2);
 sayArray($_FILES, __FILE__, __FUNCTION__, __LINE__, 2);
 
-
-//include('cleanupinc.php'); // clean our session files
-//include('springcleaning.php'); // cleanup everyone's files
-
-include('header.php'); // insert header incl. <body>-tag
+include('etc/header.php'); // insert header incl. <body>-tag
 
 	/* Form */
 	echo("<div style=\"text-align:center\">
@@ -68,11 +63,7 @@ include('header.php'); // insert header incl. <body>-tag
 				$lLdapBaseDn=$gLdapConnectionArray['basedn'];
 				$lLdapFilterFormat=$gLdapConnectionArray['filter'];
 				$lLdapDefaultThumbnail=$gLdapConnectionArray['thumbnail'];
-				#$lLdapAttributes=$gLdapConnectionArray['attributes'];
 
-				#$lLdapFilter='(cn=*)';
-				#$lLdapFilter="(cn=*$gSearchString*)"; // searching just for common name
-				//$lLdapFilter=sprintf($lLdapFilterFormat, $gSearchString); // insert searchstring into format
 				$lLdapFilter=str_replace('%s', $gSearchString, $lLdapFilterFormat); // insert searchstring into format
 				say("lLdapFilter: $lLdapFilter", __FILE__, __FUNCTION__, __LINE__, 2);
 
@@ -87,19 +78,12 @@ include('header.php'); // insert header incl. <body>-tag
 				
 						if($lLdapSearchResult = ldap_search($lLdapConnection, $lLdapBaseDn, $lLdapFilter)) //, $lLdapAttributes)) // initiate search
 						{
-							#var_dump($lLdapSearchResult);
 							$lLdapSearchResultEntries=ldap_get_entries($lLdapConnection, $lLdapSearchResult);
 							say("lLdapSearchResultEntries count: " . count($lLdapSearchResultEntries), __FILE__, __FUNCTION__, __LINE__, 2);
-							//for($i=0; $i<count($lLdapSearchResults); $i++) // walk search results
 							foreach ($lLdapSearchResultEntries as $lLdapSearchResultEntry)
 							{
-								#var_dump($lLdapSearchResultEntry);
 								if (is_array($lLdapSearchResultEntry))
 								{
-									#print_r($lLdapSearchResultEntry);
-									#print "\n";
-									// SOMEHOW NULL var_dump($lLdapSearchResultEntry['thumbnailPhoto'][0]);
-									#var_dump($lLdapSearchResultEntry);
 									if (isset($lLdapSearchResultEntry['thumbnailphoto'][0]))
 									{
 										$lLdapSearchResultUserImageLink="<img src=\"data:image/jpeg;base64," . base64_encode($lLdapSearchResultEntry['thumbnailphoto'][0]) . "\" width=\"$gThumbnailWidth\">"; /**/
@@ -116,17 +100,12 @@ include('header.php'); // insert header incl. <body>-tag
 										}
 									}
 
-
-									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, $lLdapSearchResultEntry['cn'][0], $lLdapSearchResultEntry['department'][0], $lLdapSearchResultEntry['telephonenumber'][0], $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
-
-									//printf($gTableRowFormat, $lLdapSearchResultUserimageLink, mergeValues($lLdapSearchResultEntry['cn']), mergeValues($lLdapSearchResultEntry['department']), mergeValues($lLdapSearchResultEntry['telephonenumber']), $lLdapSearchResultEntry['mail'][0], $lLdapSearchResultEntry['mail'][0]);
-									
-									$lTelephonenumbers=mergeValues($lLdapSearchResultEntry, 'telephonenumber');
+									$lTelephonenumbers=arrayToString($lLdapSearchResultEntry, 'telephonenumber');
 									$lEmails=getFirstValue($lLdapSearchResultEntry, 'mail');
 									
 									if (!$gOmitEntriesWithNoPhoneAndEmail || (strlen($lTelephonenumbers)>5 && strlen($lEmails)>5))
 									{
-										printf($gTableRowFormat, $lLdapSearchResultUserImageLink, mergeValues($lLdapSearchResultEntry, 'cn'), mergeValues($lLdapSearchResultEntry, 'department'), $lTelephonenumbers, $lEmails, $lEmails); //getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
+										printf($gTableRowFormat, $lLdapSearchResultUserImageLink, arrayToString($lLdapSearchResultEntry, 'cn'), arrayToString($lLdapSearchResultEntry, 'department'), $lTelephonenumbers, $lEmails, $lEmails); //getFirstValue($lLdapSearchResultEntry, 'mail'), getFirstValue($lLdapSearchResultEntry, 'mail'));
 									}
 
 									say("lLdapSearchResultEntry: ", __FILE__, __FUNCTION__, __LINE__, 2);
@@ -175,7 +154,7 @@ include('header.php'); // insert header incl. <body>-tag
 	}
 	
 
-function mergeValues($aArray, $aKey)
+function arrayToString($aArray, $aKey)
 {
 	// ldap returns for every value an array, even if ther's only one (f.e. telephonenumbers)
 	if (isset($aArray) && is_array($aArray) && array_key_exists($aKey, $aArray))
@@ -222,19 +201,7 @@ function getFirstValue($aArray, $aKey)
 	return($lResultString);
 }
 
-// https://stackoverflow.com/questions/16937863/display-thumbnailphoto-from-active-directory-in-php/16948219#16948219
-// https://stackoverflow.com/questions/16937863/display-thumbnailphoto-from-active-directory-in-php/16948219#16948219
-#function saveThumbnail($aArray)
-#{
-#	$tempFile = tempnam(sys_get_temp_dir(), 'image');
-#	file_put_contents($tempFile, $imageString);
-#	$finfo = new finfo(FILEINFO_MIME_TYPE);
-#	$mime  = explode(';', $finfo->file($tempFile));
-#	echo '<img src="data:' . $mime[0] . ';base64,' . base64_encode($imageString) . '"/>';
-#
-#}
 
-
-include("footer.php");
+include("etc/footer.php");
 
 ?>

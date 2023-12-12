@@ -3,7 +3,7 @@ if ($gSiteLanguage=="de")
 { // german
 	$gSiteName				=	"Telefonbuch";
 	$gShortIntro			=	"<br/>
-	Du kannst hier nach Name, Telefonnummer und Abteilung suchen.<br/>
+	Sie k&omul;nnen hier nach Name, Telefonnummer und Abteilung suchen.<br/>
 	<br/>";
 	
 	/* index.php Buttons */

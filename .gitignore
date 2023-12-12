@@ -1,4 +1,7 @@
 etc/globals.php
+etc/footer.php
+etc/header.php
+etc/internationalization.php
 images/*.jpeg
 images/*.png
 images/*.jpg

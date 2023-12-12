@@ -9,7 +9,7 @@ Web tool to query your LDAP/AD directory. Might be a useful addition to your com
 ## Installation
 - set up apache2, nginx with php and php-ldap
 - ```git clone git@github.com:/WroDo/ldapphonebook```
-- edit etc/globals.php
+- edit etc/globals.php, footer.php and header.php to your liking (use ```*-template``` as template :) )
 - upload a nice company logo
 - add some .css
 - enjoy!
